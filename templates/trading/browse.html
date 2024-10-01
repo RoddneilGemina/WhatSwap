@@ -9,8 +9,13 @@
     {% include "common/navbar.html"%}
     <div style="padding: 2%">
         <h1><b>Trade Items</b></h1>
-        {% for item in items %}
-            {% include "trading/items.html" %}
-        {% endfor %}
+        {% if user.is_authenticated %}
+                <button style="height: 35px;"><a href = "trade_create/" style="text-decoration: none">Create Trade</a></button>
+        {% endif %}
+        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 3%">
+            {% for item in items %}
+                {% include "trading/items.html" %}
+            {% endfor %}
+        </div>
     </div>
 </body>
