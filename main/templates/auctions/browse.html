@@ -11,6 +11,8 @@
 
     <h2>Auctioned Items</h2>
     <div style="border-style: solid">
+        {% for auctionitem in auctionitems %}
         {% include "auctions/item.html"%}
+        {% endfor %}
     </div>
 </body>

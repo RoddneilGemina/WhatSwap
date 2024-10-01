@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Item
+from .models import Item, AuctionItem
 
 # Create your views here.
 def landing_page(request):
@@ -10,4 +10,5 @@ def trade_browse(request):
     return render(request,"trading/browse/browse.html",{'items' : items})
 
 def auction_browse(request):
+    auctionitems = AuctionItem.objects.all()
     return render(request,"auctions/browse.html")
