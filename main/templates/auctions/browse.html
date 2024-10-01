@@ -10,7 +10,7 @@
     <!-- <div style="background-color: #D2292D; height: 35%"></div> -->
 
     <h2>Auctioned Items</h2>
-    <div style="border-style: solid">
+    <div style="border-style: solid; display: flex; flex-direction: row; padding: 50px; margin: 10px;">
         {% for auctionitem in auctionitems %}
         {% include "auctions/item.html"%}
         {% endfor %}

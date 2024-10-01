@@ -11,4 +11,4 @@ def trade_browse(request):
 
 def auction_browse(request):
     auctionitems = AuctionItem.objects.all()
-    return render(request,"auctions/browse.html")
+    return render(request,"auctions/browse.html", {'auctionitems' : auctionitems})
