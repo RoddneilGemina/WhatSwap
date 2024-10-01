@@ -7,5 +7,10 @@
 </head>
 <body>
     {% include "common/navbar.html"%}
-    <div></div>
+    <div style="padding: 2%">
+        <h1><b>Trade Items</b></h1>
+        {% for item in items %}
+            {% include "trading/items.html" %}
+        {% endfor %}
+    </div>
 </body>
