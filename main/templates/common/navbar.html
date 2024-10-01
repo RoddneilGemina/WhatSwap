@@ -9,8 +9,9 @@
         <p></p>
         <p></p>
         <p></p>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <a href="accounts/login" style="color: black">Login</a>
-        </button>
+        {% include "common/logincheck.html" %}
+        <!--button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a href="accounts/login" style="color: black">Login</a>    
+        </button-->
     </nav>
 </div>
