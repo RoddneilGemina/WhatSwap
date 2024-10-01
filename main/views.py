@@ -11,3 +11,6 @@ def trade_browse(request):
 
 def auction_browse(request):
     return render(request,"auctions/browse.html")
+
+def trade_create(request):
+    return render(request, "trading/create_trade/create_trade.html")
