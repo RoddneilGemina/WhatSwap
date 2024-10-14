@@ -15,33 +15,26 @@
       <h5 style="margin-top: 5%">Sign Up</h5>
     <form method = "post">
       {% csrf_token %}
-      {{form}}
-      <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
-        Sign Up
-      </button>
+      <div style="display:block">
+        <div class="mb-3" style="text-align: left; margin-top: 2%">
+            <label for="exampleFormControlInput1" class="form-label">Username</label>
+            <input type="name" name="username" class="form-control" id="exampleFormControlInput1" placeholder="">
+        </div>
+        <div class="mb-3" style="text-align: left; margin-top: 2%">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder="">
+        </div>
+        <div class="mb-3" style="text-align: left; margin-top: 2%">
+          <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+          <input type="password" name="password2" class="form-control" id="exampleFormControlInput1" placeholder="">
+      </div>
+        <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
+          Sign Up
+        </button>
+      </div>
     </form>
       <a href="/../accounts/login" style="color: #19487b; font-size: 12px">Already have an Account</a>
     </div>
-    <div style="display:none">
-      <div class="mb-3" style="text-align: left; margin-top: 2%">
-        <label for="exampleFormControlInput1" class="form-label">First Name</label>
-        <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="e.g. Basil">
-      </div>
-      <div class="mb-3" style="text-align: left; margin-top: 2%">
-        <label for="exampleFormControlInput1" class="form-label">Last Name</label>
-        <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="e.g. Xavier">
-      </div>
-      <div class="mb-3" style="text-align: left; margin-top: 2%">
-          <label for="exampleFormControlInput1" class="form-label">Username</label>
-          <input type="name" name="username" class="form-control" id="exampleFormControlInput1" placeholder="">
-      </div>
-      <div class="mb-3" style="text-align: left; margin-top: 2%">
-          <label for="exampleFormControlInput1" class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder="">
-      </div>
-      <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
-        Sign Up
-      </button>
-    </div>
+    
   </div>
 </body>
