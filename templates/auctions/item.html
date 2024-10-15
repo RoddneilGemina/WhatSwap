@@ -1,7 +1,12 @@
-<div>
-    <h4>{{ auctionitem.name }}</h4>
-    <p>{{ auctionitems.description }}</p>
-    <p>{{ auctionitems.owner }}</p>
-    <p>{{ auctionitems.minimum_bid }}</p>
-    <p>{{ auctionitems.created_at }}</p>
-</div>
+<div class="card" style="width: 18rem; margin: 10px;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ auctionitem.name }}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">{{ auctionitem.owner }}</h6>  
+      <p class="card-text">{{ auctionitem.description }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{ auctionitem.minimum_bid }}</li>
+      <li class="list-group-item">{{ auctionitem.created_at }}</li>
+    </ul>
+  </div>
