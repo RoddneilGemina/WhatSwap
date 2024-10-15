@@ -7,4 +7,7 @@ urlpatterns = [
     path('auctions/', views.auction_browse, name='auction_browse'),
     path('trades/trade_create/', views.trade_create, name ='trade_create'),
     path('trades/trade_item/<int:pk>/', views.trade_item, name="trade_item"),
+    path('profile/', views.profile, name ='profile'),
+    path('profile/add_item/', views.add_item, name ='add_item'),
+    path('profile/inventory/', views.inventory, name ='inventory'),
 ]
