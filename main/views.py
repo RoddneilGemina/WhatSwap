@@ -13,6 +13,7 @@ def trade_browse(request):
 
 def auction_browse(request):
     auctionitems = AuctionItem.objects.all()
+    return render(request,"auctions/browse.html", {'auctionitems' : auctionitems})
     return render(request,"auctions/browse.html")
 
 def trade_create(request):
