@@ -15,6 +15,19 @@ def auction_browse(request):
     return render(request,"auctions/browse.html", {'auctionitems' : auctionitems})
     return render(request,"auctions/browse.html")
 
+def auction_create(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            item = Item()
+            item.item_name = form.cleaned_data['item_name']
+            item.item_desc = form.cleaned_data['item_desc']
+            item.save()
+            return redirect('../../auctions')
+    else: 
+        form = ItemForm()
+    return render(request, "auctions/create_auction.html",{'form':form})
+
 def trade_create(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
