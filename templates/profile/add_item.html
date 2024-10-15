@@ -16,15 +16,16 @@
                 <h2 style="margin-top: 10%">Create Trade Listing</h2>
                 <form method = "post">
                     {% csrf_token %}
-                <div class="mb-3" style="text-align: left; margin-top: 5%">
-                    <label for="exampleFormControlInput1" class="form-label">Item Name</label>
-                    <input type="name" name="item_name" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
-                <div class="mb-3" style="text-align: left; margin-top: 5%">
-                    <label for="exampleFormControlInput1" class="form-label">Description</label>
-                    <textarea style="resize: none" name="item_desc" class="form-control" id="exampleFormControlInput1" placeholder=""></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">Confirm</button>
+                    <input type="hidden" name="owner" value="{{user.pk}}">
+                    <div class="mb-3" style="text-align: left; margin-top: 5%">
+                        <label for="exampleFormControlInput1" class="form-label">Item Name</label>
+                        <input type="name" name="item_name" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    </div>
+                    <div class="mb-3" style="text-align: left; margin-top: 5%">
+                        <label for="exampleFormControlInput1" class="form-label">Description</label>
+                        <input type="textfield" name="item_desc" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">Confirm</button>
                 </form>
             </div>
         </div>
