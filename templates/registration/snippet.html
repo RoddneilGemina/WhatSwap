@@ -1,0 +1,15 @@
+{% load form_tags %}
+<div class="fieldWrapper mb-3" style="text-align: left; margin-top: 2%">
+    {{ field.errors }}
+    <br>
+    {{ field.label_tag }} 
+    <br>
+    {{ field|add_class:"form-control"}}
+</div>
+
+<!--
+<div class="mb-3" style="text-align: left; margin-top: 2%">
+    <label for="exampleFormControlInput1" class="form-label">Username</label>
+    <input type="name" name="username" class="form-control" id="exampleFormControlInput1" placeholder="">
+</div>
+-->
