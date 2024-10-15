@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item, AuctionItem
 from .forms import ItemForm
 
@@ -26,3 +26,7 @@ def trade_create(request):
     else: 
         form = ItemForm()
     return render(request, "trading/create_trade.html",{'form':form})
+
+def trade_item(request,pk):
+    item = get_object_or_404(Item, pk=pk)
+    return render(request,"trading/iteminfo.html",{'item':item})

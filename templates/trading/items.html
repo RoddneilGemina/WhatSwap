@@ -3,18 +3,15 @@
     <head>
         <title>Trades</title>
     </head>
-    <body>
+    <body style="background-color: #1d528b;">
         <ul>
-            <div style="background-color: #d3d3d3; border-radius: 10px; display: flex; justify-content: center; flex-direction: column; text-align: center; width: 100%; padding: 20px">
+            <div style="background-color: #d3d3d3; border-radius: 10px; display: flex; justify-content: center; flex-direction: column; text-align: left; height: 300px; width: 200px; padding: 20px;" onclick="window.location.href = '../trades/trade_item/{{item.pk}}'">
                 <div style="background-color: white; width: 100px; height: 100px; margin: auto;">
-                    <p></p>
+                <br>
                 </div>
                 <p style="margin-top: 5%"></p>
-                <b>{{item.item_name}}</b>
-                <p></p>
-                {{item.item_desc}}
-                <p></p>
-                <i>{{item.created_at}}</i>
+                <h5>{{item.item_name}}</h5>
+                <h6>by {{item.author}}</h6>
             </div>
         </ul>
     </body>
