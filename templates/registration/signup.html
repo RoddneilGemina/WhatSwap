@@ -15,7 +15,18 @@
       <h5 style="margin-top: 5%">Sign Up</h5>
     <form method = "post">
       {% csrf_token %}
-      <div style="display:block">
+      {% for field in form %}
+        {% include "registration/snippet.html" %}
+      {% endfor %}
+    </form>
+      <a href="/../accounts/login" style="color: #19487b; font-size: 12px">Already have an Account</a>
+    </div>
+    
+  </div>
+</body>
+
+<!--
+<div style="display:block">
         <div class="mb-3" style="text-align: left; margin-top: 2%">
             <label for="exampleFormControlInput1" class="form-label">Username</label>
             <input type="name" name="username" class="form-control" id="exampleFormControlInput1" placeholder="">
@@ -32,9 +43,4 @@
           Sign Up
         </button>
       </div>
-    </form>
-      <a href="/../accounts/login" style="color: #19487b; font-size: 12px">Already have an Account</a>
-    </div>
-    
-  </div>
-</body>
+-->
