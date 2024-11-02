@@ -18,8 +18,5 @@ class Item(models.Model):
 
 class Profile(models.Model):
     account = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+    rating = models.FloatField(name = "Rating",default=1.0,min=1.0,max=5.0)
+    

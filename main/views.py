@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Item, AuctionItem
 from .forms import ItemForm, AddItemForm
+from .forms import UserUpdateForm
 
 # Create your views here.
 def landing_page(request):
@@ -66,3 +68,16 @@ def add_item(request):
     else: 
         form = AddItemForm()
     return render(request, "profile/add_item.html",{'form':form})
+
+def update_account(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Your account has been updated!')
+            return redirect('update_account')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+    return render(request, 'profile/update.html', {
+        'user_form': user_form
+    })

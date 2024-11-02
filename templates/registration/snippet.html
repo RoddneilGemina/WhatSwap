@@ -1,8 +1,7 @@
 {% load form_tags %}
-<div class="fieldWrapper mb-3" style="text-align: left; margin-top: 2%">
-    {{ field.errors }}
-    <br>
+<div class="fieldWrapper mb-3" style="text-align: left; margin: 0px">
     {{ field.label_tag }} 
+    {{ field.errors }}
     <br>
     {{ field|add_class:"form-control"}}
 </div>
