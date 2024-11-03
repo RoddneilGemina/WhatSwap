@@ -18,5 +18,5 @@ class Item(models.Model):
 
 class Profile(models.Model):
     account = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.FloatField(name = "Rating",default=1.0,min=1.0,max=5.0)
+    # rating = models.FloatField(name = "Rating",default=1.0,min=1.0,max=5.0)
     
