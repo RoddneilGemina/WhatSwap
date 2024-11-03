@@ -10,13 +10,26 @@
 <body style="background-color: #1d528b;">
     {% include "common/navbar.html"%}
     <div style="padding:5%"> 
-        <h1 style="color: white">Change my profile</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{user_form}}
-            <button class="btn btn-primary" type="submit">Save changes</button>
-        </form>
-            
+        <h1 style="color: white">Update my Account</h1>
+        <div style="background-color:white;padding:30px;border-radius:10px; margin-left:10%; margin-right:10%;margin-top:2%">
+            <form method="post">
+                {% csrf_token %}
+                <h4>Username</h4>
+                {{user_form.username}}
+                <hr>
+                <h4>First Name</h4>
+                {{user_form.first_name}}
+                <hr>
+                <h4>Last Name</h4>
+                {{user_form.last_name}}
+                <hr>
+                <h4>Email</h4>
+                {{user_form.email}}
+                <hr>
+                <button class="btn btn-success" type="submit">Save changes</button>
+                <button class="btn btn-danger" type="button" onclick="window.location.href ='/profile'">Cancel Changes</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
