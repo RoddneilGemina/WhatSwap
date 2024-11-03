@@ -1,12 +1,12 @@
 <div class="card" style="width: 18rem; margin: 10px;">
-    <img src="..." class="card-img-top" alt="...">
+    <div style="background-image: url('{{auctionitem.auction_item_id.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px"></div>
     <div class="card-body">
-      <h5 class="card-title">{{ auctionitem.name }}</h5>
-      <h6 class="card-subtitle mb-2 text-body-secondary">{{ auctionitem.owner }}</h6>  
-      <p class="card-text">{{ auctionitem.description }}</p>
+      <h5 class="card-title">{{ auctionitem.auction_title }}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">{{ auctionitem.auction_item_id.owner }}</h6>  
+      <p class="card-text">{{ auctionitem.auction_description }}</p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{ auctionitem.minimum_bid }}</li>
-      <li class="list-group-item">{{ auctionitem.created_at }}</li>
+      <li class="list-group-item">₱{{ auctionitem.minimum_bid }}</li>
+      <li class="list-group-item">Until {{ auctionitem.end_date }}</li>
     </ul>
   </div>

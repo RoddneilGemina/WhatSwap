@@ -16,7 +16,7 @@ def trade_browse(request):
 def auction_browse(request):
     auctionitems = Auction.objects.all()
     return render(request,"auctions/browse.html", {'auctionitems' : auctionitems})
-    return render(request,"auctions/browse.html")
+
 
 # def auction_create(request):
 #     if request.method == 'POST':
@@ -73,9 +73,10 @@ def add_item(request):
             item = Item()
             item.item_name = form.cleaned_data['item_name']
             item.item_desc = form.cleaned_data['item_desc']
+            item.image_url = form.cleaned_data['image_url']
             item.owner = User.objects.get(id=int(form.cleaned_data['owner']))
             item.save()
-            return redirect('/profile/')
+            return redirect('inventory')
     else: 
         form = AddItemForm()
     return render(request, "profile/add_item.html",{'form':form})
