@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Item, AuctionItem
-from .forms import ItemForm, AddItemForm
+from .models import Item, Auction
+from .forms import ItemForm, AddItemForm, CreateAuctionForm
 from .forms import UserUpdateForm
 
 # Create your views here.
@@ -14,22 +14,33 @@ def trade_browse(request):
     return render(request,"trading/browse.html",{'items' : items})
 
 def auction_browse(request):
-    auctionitems = AuctionItem.objects.all()
+    auctionitems = Auction.objects.all()
     return render(request,"auctions/browse.html", {'auctionitems' : auctionitems})
     return render(request,"auctions/browse.html")
 
+# def auction_create(request):
+#     if request.method == 'POST':
+#         form = CreateAuctionForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('auctions')
+#     else: 
+#         form = CreateAuctionForm()
+#     return render(request, "auctions/create_auction.html",{'form':form})
 def auction_create(request):
-    if request.method == 'POST':
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            item = Item()
-            item.item_name = form.cleaned_data['item_name']
-            item.item_desc = form.cleaned_data['item_desc']
-            item.save()
-            return redirect('../../auctions')
-    else: 
-        form = ItemForm()
-    return render(request, "auctions/create_auction.html",{'form':form})
+    if request.method == "POST":
+        auction = Auction()
+        form = CreateAuctionForm(request.POST)
+        auction.auction_title = request.POST.get('auction_title')
+        auction.auction_description = request.POST.get('auction_description')
+        auction.start_date = request.POST.get('start_date')
+        auction.end_date = request.POST.get('end_date')
+        auction.minimum_bid = request.POST.get('minimum_bid')
+        auction.auction_item_id = Item.objects.get(pk=int(request.POST.get('auction_item_id')))
+        auction.save()
+        return redirect('auction_browse')
+    form = CreateAuctionForm()
+    return render(request, "auctions/create_auction.html",{"form":form})
 
 def trade_create(request):
     if request.method == 'POST':

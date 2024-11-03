@@ -17,28 +17,42 @@
                 <h2 style="margin-top: 10%">New Auction Listing</h2>
                 <form method = "post">
                     {% csrf_token %}
+                    <!-- <div class="mb-3" style="text-align: left; margin-top: 5%">
+                        <label for="itemID" class="form-label">Item ID</label>
+                        <input type="name" name="auction_item_id" class="form-control" id="itemID" placeholder="">
+                    </div> -->
+                    Item ID
+                    {{form.auction_item_id}}
 
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
-                        <label for="exampleFormControlInput1" class="form-label">Item Name</label>
-                        <input type="name" name="item_name" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <label for="exampleFormControlInput1" class="form-label">Auction Title</label>
+                        <input type="name" name="auction_title" class="form-control" id="exampleFormControlInput1" placeholder="">
                     </div>
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="exampleFormControlInput1" class="form-label">Description</label>
-                        <textarea style="resize: none;" class="form-control" placeholder="" id="exampleFormControlInput1"></textarea>
+                        <textarea name="auction_description" style="resize: none;" class="form-control" placeholder="" id="exampleFormControlInput1"></textarea>
                     </div>  
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
-                        <label for="formFile" class="form-label">Item Image</label>
-                        <input class="form-control" type="file" accept="image/*" id="formFile">
+                        <label for="auctionStart" class="form-label">Auction Start</label>
+                        <input class="form-control" type="date" id="start_date" name="start_date">
                     </div>
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="auctionEnd" class="form-label">Auction End</label>
-                        <input class="form-control" type="date" id="auctionEnd">
+                        <input class="form-control" type="date" id="end_date" name="end_date">
                     </div>
+                    <div class="mb-3" style="text-align: left; margin-top: 5%">
+                        <label for="minBid" class="form-label">Minimum Bid (₱)</label>
+                        <input class="form-control" type="number" id="minimum_bid" name="minimum_bid" value="0.0" step="0.5">
+                    </div>
+                    
                       
                     <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">Confirm</button>
                 
                 </form>
-
+                <!-- <form method="post">
+                    {% csrf_token %}
+                    {{form}}
+                </form> -->
             </div>
         </div>
     </div>
