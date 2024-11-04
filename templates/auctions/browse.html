@@ -12,7 +12,7 @@
         {% if user.is_authenticated %}
                 <button class="btn btn-primary" style="height: 35px; border: none; background-color: #1761b0;"><a href = "/auctions/auction_create/" style="text-decoration: none; color: white">Create New Auction</a></button>
         {% endif %}
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 3%">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 3%">
             {% for auctionitem in auctionitems %}
                 {% include "auctions/item.html"%}   
             {% endfor %}
