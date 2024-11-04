@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Item, Auction, Offer
 from .forms import ItemForm, AddItemForm, CreateAuctionForm, OfferForm
-from .models import Item, Auction
-from .forms import ItemForm, AddItemForm, CreateAuctionForm, AuctionUpdateForm
 from .forms import UserUpdateForm
 
 # Create your views here.
@@ -32,27 +30,20 @@ def auction_browse(request):
 def auction_create(request):
     if request.method == "POST":
         auction = Auction()
-        form = CreateAuctionForm(request.POST, user=request.user)
+        form = CreateAuctionForm(request.POST)
         auction.auction_title = request.POST.get('auction_title')
         auction.auction_description = request.POST.get('auction_description')
-        
         auction.start_date = request.POST.get('start_date')
         auction.end_date = request.POST.get('end_date')
-
         auction.minimum_bid = request.POST.get('minimum_bid')
-        auction.auction_item = Item.objects.get(pk=int(request.POST.get('auction_item_id')))
+        auction.auction_item_id = Item.objects.get(pk=int(request.POST.get('auction_item_id')))
         auction.save()
         return redirect('auction_browse')
-    form = CreateAuctionForm(user=request.user)
+    form = CreateAuctionForm()
     return render(request, "auctions/create_auction.html",{"form":form})
 
 def trade_create(request,pk):
     item = get_object_or_404(Item, id = pk)
-def auction_item(request,pk):
-    auction = get_object_or_404(Auction, pk=pk)
-    return render(request,"auctions/auction.html",{'auction':auction})
-
-def trade_create(request):
     if request.method == 'POST':
         #form = OfferForm(request.POST)
         #if form.is_valid():
@@ -75,12 +66,6 @@ def trade_info(request,pk):
     return render(request,"trading/trade_info.html",{'offer':offer})
 
 def profile(request):
-    if request.method == 'POST':
-        print("DELETE AAA")
-        if request.POST.get('is_deleting')=="true":
-            print("DELETE BBB")
-            request.user.delete()
-            return redirect('landing_page')
     return render(request,"profile/my_profile.html")
 
 def inventory(request):
@@ -102,40 +87,15 @@ def add_item(request):
         form = AddItemForm()
     return render(request, "profile/add_item.html",{'form':form})
 
-def view_item(request,pk):
-    item = get_object_or_404(Item, pk=pk)
-    return render(request,"profile/view_item.html",{'item':item})
-
 def update_account(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         if user_form.is_valid():
             user_form.save()
             messages.success(request, 'Your account has been updated!')
-            return redirect('profile')
+            return redirect('update_account')
     else:
         user_form = UserUpdateForm(instance=request.user)
     return render(request, 'profile/update.html', {
         'user_form': user_form
-    })
-
-def auction_update(request,pk):
-    if request.method == 'POST':
-        auction = Auction.objects.get(pk=int(pk))
-        auction_form = AuctionUpdateForm(request.POST, instance=auction)
-        auction.auction_title = request.POST.get('auction_title')
-        auction.auction_description = request.POST.get('auction_description')
-        
-        auction.start_date = request.POST.get('start_date')
-        auction.end_date = request.POST.get('end_date')
-
-        auction.minimum_bid = request.POST.get('minimum_bid')
-        auction.save()
-        messages.success(request, 'Your auction has been updated!')
-        return redirect(f'/auctions/auction_item/{pk}')
-    else:
-        auction = Auction.objects.get(pk=int(pk))
-        auction_form = AuctionUpdateForm(instance=auction)
-    return render(request, 'auctions/update_auction.html', {
-        'auction': auction
     })

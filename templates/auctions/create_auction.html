@@ -14,7 +14,7 @@
             </div>
             <div style=" margin-left: 30px; display: flex; justify-content: center; flex-direction: column"> 
                 
-                <h2 style="margin-top: 10%"><b>New Auction Listing</b></h2>
+                <h2 style="margin-top: 10%">New Auction Listing</h2>
                 <form method = "post">
                     {% csrf_token %}
                     <!-- <div class="mb-3" style="text-align: left; margin-top: 5%">
@@ -26,7 +26,7 @@
 
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="exampleFormControlInput1" class="form-label">Auction Title</label>
-                        <input type="name" name="auction_title" class="form-control" id="exampleFormControlInput1" value="">
+                        <input type="name" name="auction_title" class="form-control" id="exampleFormControlInput1" placeholder="">
                     </div>
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="exampleFormControlInput1" class="form-label">Description</label>
@@ -34,11 +34,11 @@
                     </div>  
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="auctionStart" class="form-label">Auction Start</label>
-                        <input class="form-control" type="datetime-local" id="start_date" name="start_date">
+                        <input class="form-control" type="date" id="start_date" name="start_date">
                     </div>
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="auctionEnd" class="form-label">Auction End</label>
-                        <input class="form-control" type="datetime-local" id="end_date" name="end_date">
+                        <input class="form-control" type="date" id="end_date" name="end_date">
                     </div>
                     <div class="mb-3" style="text-align: left; margin-top: 5%">
                         <label for="minBid" class="form-label">Minimum Bid (₱)</label>
@@ -46,7 +46,7 @@
                     </div>
                     
                       
-                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">Post Auction</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: #19487b; width: 40%; margin-top: 10%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">Confirm</button>
                 
                 </form>
                 <!-- <form method="post">
