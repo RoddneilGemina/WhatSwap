@@ -1,0 +1,10 @@
+<ul style="background-color: #1d528b;">
+    <div style="background-color: #d3d3d3; border-radius: 10px; display: flex; justify-content: center; flex-direction: column; text-align: left; height: 300px; width: 200px; padding: 20px;" onclick="window.location.href = '/trades/trade_create/{{item.pk}}'">
+        <div style="background-image: url('{{item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px">
+        <br>
+        </div>
+        <p style="margin-top: 5%"></p>
+        <h5>{{item.item_name}}</h5>
+        <h6>by {{item.owner}}</h6>
+    </div>
+</ul>

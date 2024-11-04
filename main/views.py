@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Item, Auction
-from .forms import ItemForm, AddItemForm, CreateAuctionForm
+from .models import Item, Auction, Offer
+from .forms import ItemForm, AddItemForm, CreateAuctionForm, OfferForm
 from .forms import UserUpdateForm
 
 # Create your views here.
@@ -10,8 +10,8 @@ def landing_page(request):
     return render(request,"landing/landing.html")
 
 def trade_browse(request):
-    items = Item.objects.all()
-    return render(request,"trading/browse.html",{'items' : items})
+    offers = Offer.objects.all()
+    return render(request,"trading/browse.html",{'offers' : offers})
 
 def auction_browse(request):
     auctionitems = Auction.objects.all()
@@ -42,22 +42,28 @@ def auction_create(request):
     form = CreateAuctionForm()
     return render(request, "auctions/create_auction.html",{"form":form})
 
-def trade_create(request):
+def trade_create(request,pk):
+    item = get_object_or_404(Item, id = pk)
     if request.method == 'POST':
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            item = Item()
-            item.item_name = form.cleaned_data['item_name']
-            item.item_desc = form.cleaned_data['item_desc']
-            item.save()
-            return redirect('../../trades')
+        #form = OfferForm(request.POST)
+        #if form.is_valid():
+        offer = Offer() 
+        offer.offer_title = request.POST.get('offer_title') #form.cleaned_data['offer_title']
+        offer.offer_desc = request.POST.get('offer_desc') #form.cleaned_data['offer_desc']
+        offer.offer_item = item
+        offer.save()
+        return redirect('trade_browse')
     else: 
-        form = ItemForm()
-    return render(request, "trading/create_trade.html",{'form':form})
+        form = OfferForm()
+    return render(request, "trading/trade_create.html",{'item': item})
 
-def trade_item(request,pk):
-    item = get_object_or_404(Item, pk=pk)
-    return render(request,"trading/iteminfo.html",{'item':item})
+def select_item(request):
+    items = Item.objects.filter(owner=request.user.id)
+    return render(request,"trading/select_item.html",{'items':items})
+
+def trade_info(request,pk):
+    offer = get_object_or_404(Offer, pk=pk)
+    return render(request,"trading/trade_info.html",{'offer':offer})
 
 def profile(request):
     return render(request,"profile/my_profile.html")

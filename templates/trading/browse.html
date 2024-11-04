@@ -10,11 +10,11 @@
     <div style="padding: 2%; margin-left: 10%; margin-right: 10%;">
         <h1 style="color: white"><b>Trade Items</b></h1>
         {% if user.is_authenticated %}
-                <button class="btn btn-primary" style="height: 35px; border: none; background-color: #1761b0;"><a href = "trade_create/" style="text-decoration: none; color: white">Create Trade</a></button>
+                <button class="btn btn-primary" style="height: 35px; border: none; background-color: #1761b0;"><a href = "select_item/" style="text-decoration: none; color: white">Create Trade</a></button>
         {% endif %}
         <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 3%">
-            {% for item in items %}
-                {% include "trading/items.html" %}
+            {% for offer in offers %}
+                {% include "trading/trade_item.html" %}
             {% endfor %}
         </div>
     </div>

@@ -12,15 +12,16 @@
             <div style="margin-left: 1.5%; margin-top: 1%; margin-bottom: 2%">
                 <a href="../../" style="text-decoration: none; font-size: 12px; color: #19487b; float: left">Back</a> 
             </div>
-            <div style="margin-right: 5%; margin-left: 5%; border: 3px double black; padding: 5%;">
+            <div style="margin-right: 5%; margin-left: 5%; padding: 5%;">
                 <div style="width: 100%; display: flex; margin-right: 1%; margin-top: 2%;">
-                    <div style="background-color: aliceblue; height: 300px; width: 55%;"></div>
+                    <div style="background-image: url('{{offer.offer_item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; height: 300px; width: 55%;">
+                    </div>
                     <div style=" margin-left: 30px; width: 45%; display: flex; justify-content: center; flex-direction: column;"> 
-                        <h1 style="margin-top: 10%">{{item.item_name}}</h1>
-                        <h6>by {{item.author}}</h6>
+                        <h1 style="margin-top: 10%">{{offer.offer_title}}</h1>
+                        <h6>by {{offer.offer_item.owner.username}}</h6>
                         <br><br>
                         <h6>Date</h6>
-                        <p>{{item.created_at}}</p>
+                        <p>{{offer.date_offered}}</p>
                     </div>
                 </div>
                 <div style="display: flex;">
@@ -29,7 +30,7 @@
                             <h6>Description</h6>   
                         </div> 
                         <div>
-                            {{item.item_desc}}
+                            {{offer.offer_desc}}
                         </div>
                     </div>
                     <div style = "width: 45%; display: flex; flex-direction: column;">
