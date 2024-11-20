@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Item, Auction
-from .forms import ItemForm, AddItemForm, CreateAuctionForm, AuctionUpdateForm
+from .models import Item, Auction, Offer
+from .forms import ItemForm, AddItemForm, CreateAuctionForm, OfferForm
 from .forms import UserUpdateForm
 
 # Create your views here.
@@ -10,8 +10,8 @@ def landing_page(request):
     return render(request,"landing/landing.html")
 
 def trade_browse(request):
-    items = Item.objects.all()
-    return render(request,"trading/browse.html",{'items' : items})
+    offers = Offer.objects.filter(is_directed = False)
+    return render(request,"trading/browse.html",{'offers' : offers})
 
 def auction_browse(request):
     auctionitems = Auction.objects.all()
@@ -30,53 +30,97 @@ def auction_browse(request):
 def auction_create(request):
     if request.method == "POST":
         auction = Auction()
-        form = CreateAuctionForm(request.POST, user=request.user)
+        form = CreateAuctionForm(request.POST)
         auction.auction_title = request.POST.get('auction_title')
         auction.auction_description = request.POST.get('auction_description')
-        
         auction.start_date = request.POST.get('start_date')
         auction.end_date = request.POST.get('end_date')
-
         auction.minimum_bid = request.POST.get('minimum_bid')
-        auction.auction_item = Item.objects.get(pk=int(request.POST.get('auction_item_id')))
+        auction.auction_item_id = Item.objects.get(pk=int(request.POST.get('auction_item_id')))
         auction.save()
         return redirect('auction_browse')
-    form = CreateAuctionForm(user=request.user)
+    form = CreateAuctionForm()
     return render(request, "auctions/create_auction.html",{"form":form})
 
-def auction_item(request,pk):
-    auction = get_object_or_404(Auction, pk=pk)
-    return render(request,"auctions/auction.html",{'auction':auction})
-
-def trade_create(request):
+def trade_create(request,pk):
+    item = get_object_or_404(Item, id = pk)
     if request.method == 'POST':
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            item = Item()
-            item.item_name = form.cleaned_data['item_name']
-            item.item_desc = form.cleaned_data['item_desc']
-            item.save()
-            return redirect('../../trades')
+        #form = OfferForm(request.POST)
+        #if form.is_valid():
+        offer = Offer() 
+        offer.offer_title = request.POST.get('offer_title') #form.cleaned_data['offer_title']
+        offer.offer_desc = request.POST.get('offer_desc') #form.cleaned_data['offer_desc']
+        offer.offer_item = item
+        offer.save()
+        return redirect('trade_browse')
     else: 
-        form = ItemForm()
-    return render(request, "trading/create_trade.html",{'form':form})
+        form = OfferForm()
+    return render(request, "trading/trade_create.html",{'item': item})
 
-def trade_item(request,pk):
-    item = get_object_or_404(Item, pk=pk)
-    return render(request,"trading/iteminfo.html",{'item':item})
+def directed_select_item(request,pk):
+    target = Offer.objects.get(pk = pk)
+    doffers = Offer.objects.filter(directed_offer_id = target)
+    ritems = Item.objects.filter(owner=request.user.id)
+    ditems = []
+    items = []
+    for d in doffers:
+        ditems.append(d.offer_item)
+    for i in ritems:
+        if i not in ditems:
+            items.append(i)
+    if request.method == "POST":
+        doffer = Offer()
+        ditem = Item.objects.get(pk=int(request.POST.get('item')))
+        doffer.offer_title = ditem.item_name
+        doffer.offer_item = ditem
+        doffer.is_directed = True
+        doffer.directed_offer_id = target
+        doffer.save()
+        return redirect('trade_info', pk)
+    return render(request,"trading/directed_select_item.html",{'items':items, 'target': target})
+
+def select_item(request):
+    items = Item.objects.filter(owner=request.user.id)
+    offers = Offer.objects.all()
+    ritems = Item.objects.filter(owner=request.user.id)
+    ditems = []
+    items = []
+    for d in offers:
+        ditems.append(d.offer_item)
+    for i in ritems:
+        if i not in ditems:
+            items.append(i)
+    return render(request,"trading/select_item.html",{'items':items})
+
+def trade_info(request,pk):
+    offer = get_object_or_404(Offer, pk=pk)
+    doffers = Offer.objects.filter(directed_offer_id = offer)
+    if request.method == "POST":
+        if request.POST.get('is_deleting')=="true":
+            offer.delete()
+            return redirect('trade_browse')
+    return render(request,"trading/trade_info.html",{'offer':offer,'doffers':doffers})
 
 def profile(request):
-    if request.method == 'POST':
-        print("DELETE AAA")
-        if request.POST.get('is_deleting')=="true":
-            print("DELETE BBB")
-            request.user.delete()
-            return redirect('landing_page')
     return render(request,"profile/my_profile.html")
 
 def inventory(request):
     items = Item.objects.filter(owner=request.user.id)
     return render(request,"profile/inventory.html",{'items':items})
+
+def trade_update(request,pk):
+    if request.method == 'POST':
+        offer = Offer.objects.get(pk=int(pk))
+        offer.offer_title = request.POST.get('offer_title')
+        offer.offer_desc = request.POST.get('offer_desc')
+        offer.save()
+        messages.success(request, 'Your offer has been updated!')
+        return redirect(f'/trades/trade_info/{pk}')
+    else:
+        offer = Offer.objects.get(pk=int(pk))
+    return render(request, 'trading/trade_update.html', {
+        'offer': offer
+    })
 
 def add_item(request):
     if request.method == 'POST':
@@ -93,40 +137,15 @@ def add_item(request):
         form = AddItemForm()
     return render(request, "profile/add_item.html",{'form':form})
 
-def view_item(request,pk):
-    item = get_object_or_404(Item, pk=pk)
-    return render(request,"profile/view_item.html",{'item':item})
-
 def update_account(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         if user_form.is_valid():
             user_form.save()
             messages.success(request, 'Your account has been updated!')
-            return redirect('profile')
+            return redirect('update_account')
     else:
         user_form = UserUpdateForm(instance=request.user)
     return render(request, 'profile/update.html', {
         'user_form': user_form
-    })
-
-def auction_update(request,pk):
-    if request.method == 'POST':
-        auction = Auction.objects.get(pk=int(pk))
-        auction_form = AuctionUpdateForm(request.POST, instance=auction)
-        auction.auction_title = request.POST.get('auction_title')
-        auction.auction_description = request.POST.get('auction_description')
-        
-        auction.start_date = request.POST.get('start_date')
-        auction.end_date = request.POST.get('end_date')
-
-        auction.minimum_bid = request.POST.get('minimum_bid')
-        auction.save()
-        messages.success(request, 'Your auction has been updated!')
-        return redirect(f'/auctions/auction_item/{pk}')
-    else:
-        auction = Auction.objects.get(pk=int(pk))
-        auction_form = AuctionUpdateForm(instance=auction)
-    return render(request, 'auctions/update_auction.html', {
-        'auction': auction
     })
