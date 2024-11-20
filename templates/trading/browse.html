@@ -7,12 +7,12 @@
 </head>
 <body style="background-color: #1d528b;">
     {% include "common/navbar.html"%}
-    <div style="padding: 2%; margin-left: 10%; margin-right: 10%;">
-        <h1 style="color: white"><b>Trade Items</b></h1>
+    <div class="pagecontent-div">
+        <h1 class="pageheader"><b>Trade Items</b></h1>
         {% if user.is_authenticated %}
-                <button class="btn btn-primary" style="height: 35px; border: none; background-color: #1761b0;"><a href = "select_item/" style="text-decoration: none; color: white">Create Trade</a></button>
+                <button class="btn-primary"><a href = "select_item/" style="text-decoration: none; color: white">Create Trade</a></button>
         {% endif %}
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 3%">
+        <div class="itemcontainer">
             {% for offer in offers %}
                 {% include "trading/trade_item.html" %}
             {% endfor %}

@@ -10,7 +10,7 @@ def landing_page(request):
     return render(request,"landing/landing.html")
 
 def trade_browse(request):
-    offers = Offer.objects.all()
+    offers = Offer.objects.filter(is_directed = False)
     return render(request,"trading/browse.html",{'offers' : offers})
 
 def auction_browse(request):
@@ -57,13 +57,49 @@ def trade_create(request,pk):
         form = OfferForm()
     return render(request, "trading/trade_create.html",{'item': item})
 
+def directed_select_item(request,pk):
+    target = Offer.objects.get(pk = pk)
+    doffers = Offer.objects.filter(directed_offer_id = target)
+    ritems = Item.objects.filter(owner=request.user.id)
+    ditems = []
+    items = []
+    for d in doffers:
+        ditems.append(d.offer_item)
+    for i in ritems:
+        if i not in ditems:
+            items.append(i)
+    if request.method == "POST":
+        doffer = Offer()
+        ditem = Item.objects.get(pk=int(request.POST.get('item')))
+        doffer.offer_title = ditem.item_name
+        doffer.offer_item = ditem
+        doffer.is_directed = True
+        doffer.directed_offer_id = target
+        doffer.save()
+        return redirect('trade_info', pk)
+    return render(request,"trading/directed_select_item.html",{'items':items, 'target': target})
+
 def select_item(request):
     items = Item.objects.filter(owner=request.user.id)
+    offers = Offer.objects.all()
+    ritems = Item.objects.filter(owner=request.user.id)
+    ditems = []
+    items = []
+    for d in offers:
+        ditems.append(d.offer_item)
+    for i in ritems:
+        if i not in ditems:
+            items.append(i)
     return render(request,"trading/select_item.html",{'items':items})
 
 def trade_info(request,pk):
     offer = get_object_or_404(Offer, pk=pk)
-    return render(request,"trading/trade_info.html",{'offer':offer})
+    doffers = Offer.objects.filter(directed_offer_id = offer)
+    if request.method == "POST":
+        if request.POST.get('is_deleting')=="true":
+            offer.delete()
+            return redirect('trade_browse')
+    return render(request,"trading/trade_info.html",{'offer':offer,'doffers':doffers})
 
 def profile(request):
     return render(request,"profile/my_profile.html")
@@ -71,6 +107,20 @@ def profile(request):
 def inventory(request):
     items = Item.objects.filter(owner=request.user.id)
     return render(request,"profile/inventory.html",{'items':items})
+
+def trade_update(request,pk):
+    if request.method == 'POST':
+        offer = Offer.objects.get(pk=int(pk))
+        offer.offer_title = request.POST.get('offer_title')
+        offer.offer_desc = request.POST.get('offer_desc')
+        offer.save()
+        messages.success(request, 'Your offer has been updated!')
+        return redirect(f'/trades/trade_info/{pk}')
+    else:
+        offer = Offer.objects.get(pk=int(pk))
+    return render(request, 'trading/trade_update.html', {
+        'offer': offer
+    })
 
 def add_item(request):
     if request.method == 'POST':
