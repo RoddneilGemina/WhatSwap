@@ -14,7 +14,10 @@
         {% endif %}
         <div class="itemcontainer">
             {% for offer in offers %}
-                {% include "trading/trade_item.html" %}
+                {% if offer.is_directed %}
+                {% else %}
+                    {% include "trading/trade_item.html" %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

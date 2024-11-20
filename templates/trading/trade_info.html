@@ -37,25 +37,30 @@
                         <div style="height: 50% "></div>
                         <div style="height:inherit;">
                                 {% if user.is_authenticated %}
-                                {% if request.user == offer.offer_item.owner %}
-                                    <button type="button" class="btn btn-primary" onclick="window.location.href = '/trades/trade_update/{{offer.pk}}'">
-                                        EDIT TRADE
-                                    </button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                        DELETE TRADE
-                                    </button>
-                                    {% include "trading/delete_modal.html" %}
-                                {% else %}
-                                    {% if offer.directed_offer_id.owner.pk == user.pk %}
-                                        <div style="display: flex">
-                                            <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px; background-color: limegreen;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">ACCEPT</p></button>
-                                            <button class="btn-big" style="width: 100px; height: 60px; margin-left: 10px; background-color: red;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">REJECT</p></button>
-                                        </div>
+                                    {% if request.user == offer.offer_item.owner %}
+                                        <button type="button" class="btn btn-primary" onclick="window.location.href = '/trades/trade_update/{{offer.pk}}'">
+                                            EDIT TRADE
+                                        </button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                            DELETE TRADE
+                                        </button>
+                                        {% include "trading/delete_modal.html" %}
+                                    {% else %}
+                                        {% if offer.directed_offer_id.offer_item.owner.id == user.pk %}
+                                            <div style="display: flex">
+                                                <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px; background-color: limegreen;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">ACCEPT</p></button>
+                                                <button class="btn-big" style="width: 100px; height: 60px; margin-left: 10px; background-color: red;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">REJECT</p></button>
+                                            </div>
+                                        {% else %}
+                                            {% if offer.is_directed %}
+                                            {% else %}
+                                                <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px    ;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">OFFER</p></button>
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
+                                {% else %}
+                                    <button type="button" class="btn btn-primary" disabled>LOG IN TO TRADE</button>                            
                                 {% endif %}
-                            {% else %}
-                                <button type="button" class="btn btn-primary" disabled>LOG IN TO BID</button>                            
-                            {% endif %}
                         </div>
                     </div>
                 </div>
