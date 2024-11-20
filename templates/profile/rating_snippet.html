@@ -1,0 +1,50 @@
+<style>
+    .star{
+        margin: 0;
+        border: 0;
+        font-size: larger;
+    }
+</style>
+
+
+<button class="star star-left " id="star0"  ></button>
+<button class="star star-right " id="star1" ></button>
+<button class="star star-left " id="star2" ></button>
+<button class="star star-right " id="star3" ></button>
+<button class="star star-left " id="star4"  ></button>
+<button class="star star-right " id="star5" ></button>
+<button class="star star-left " id="star6"  ></button>
+<button class="star star-right " id="star7" ></button>
+<button class="star star-left " id="star8"  ></button>
+<button class="star star-right" id="star9"></button>
+<br><br>
+<input type="number" value="123">
+<script>
+    lstars = document.querySelectorAll(".star-left");
+    rstars = document.querySelectorAll(".star-right");
+    stars  = document.querySelectorAll(".star");
+    lstars.forEach(element => {
+        element.innerText = "{";
+    });
+    rstars.forEach(element => {
+        element.innerText = "}";
+    });
+    let sel = 0;
+
+    function update_stars(){
+        stars.forEach(elem =>{
+                if (parseInt(elem.id[4]) <= sel){
+                    elem.style.background_color = "#FFFF00";
+                } else {
+                    elem.style.background_color = "#FFFFFF";
+                }
+            });
+    }
+    stars.forEach(element => {
+        element.addEventListener("mouseover", (e)=>{
+            sel = parseInt(element.id[4]);
+            console.log(sel);
+            update_stars();
+        });
+    });
+</script>

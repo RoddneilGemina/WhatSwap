@@ -16,6 +16,7 @@
             <b>First Name:</b><br>&nbsp &nbsp &nbsp{{user.first_name}} <br><hr>
             <b>Last Name:</b><br>&nbsp &nbsp &nbsp{{user.last_name}} <br><hr>
             <b>Email:</b><br>&nbsp &nbsp &nbsp{{user.email}} <br><hr>
+            <b>Rating:</b><br>{% include "profile/rating_snippet.html" %}<br><hr>
             <b>Account Operations:</b><br><br>
             <button class="btn btn-success" onclick="window.location.href = '/profile/update_account'">Update my Account</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete my Account</button>

@@ -2,11 +2,19 @@ from django.db import models
 import django.utils.timezone as tz
 from django.contrib.auth.models import User
 
-# Create your models here.
+# Crseate your models here.
 class Profile(models.Model):
     account = models.ForeignKey(User, on_delete = models.CASCADE)
-    # rating = models.FloatField(name = "Rating",default=1.0,min=1.0,max=5.0)
-    
+    image_url = models.CharField(max_length=4092,null=True, blank = True)
+
+class Rating(models.Model):
+    ratee = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank = True, related_name="Ratee")
+    rater = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank = True, related_name="Rater")
+    #comment = models.TextField(max_length=256, null = True, blank = True)
+    value = models.FloatField(name = "Rating",default=1.0)
+    def __str__(self):
+        return f"{self.rater} for {self.ratee}: {self.value}"
+
 class Item(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank = True)
     item_name = models.CharField(max_length=100)
