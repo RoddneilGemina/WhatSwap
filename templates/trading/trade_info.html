@@ -18,7 +18,7 @@
                     </div>
                     <div style=" margin-left: 30px; width: 45%; display: flex; justify-content: center; flex-direction: column;"> 
                         <h1 style="margin-top: 10%">{{offer.offer_title}}</h1>
-                        <h6>by {{offer.offer_item.owner.username}}</h6>
+                        <h6>by {{offer.author}}</h6>
                         <br><br>
                         <h6>Date</h6>
                         <p>{{offer.date_offered}}</p>
@@ -48,8 +48,16 @@
                                     {% else %}
                                         {% if offer.directed_offer_id.offer_item.owner.id == user.pk %}
                                             <div style="display: flex">
-                                                <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px; background-color: limegreen;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">ACCEPT</p></button>
-                                                <button class="btn-big" style="width: 100px; height: 60px; margin-left: 10px; background-color: red;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">REJECT</p></button>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="is_accepted" value="true">
+                                                    <button type="submit" class="btn-big" style="width: 100px; height: 60px; margin-left: 15px; background-color: limegreen;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">ACCEPT</p></button>
+                                                </form>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="is_accepted" value="false">
+                                                    <button type="submit" class="btn-big" style="width: 100px; height: 60px; margin-left: 10px; background-color: red;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">REJECT</p></button>
+                                                </form>
                                             </div>
                                         {% else %}
                                             {% if offer.is_directed %}

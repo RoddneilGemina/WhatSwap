@@ -7,7 +7,7 @@
 </style>
 
 
-<button class="star star-left " id="star0"  ></button>
+<button class="star star-left " id="star0"  >{% include "profile/starL.html" %}</button>
 <button class="star star-right " id="star1" ></button>
 <button class="star star-left " id="star2" ></button>
 <button class="star star-right " id="star3" ></button>
@@ -23,20 +23,20 @@
     lstars = document.querySelectorAll(".star-left");
     rstars = document.querySelectorAll(".star-right");
     stars  = document.querySelectorAll(".star");
-    lstars.forEach(element => {
-        element.innerText = "{";
-    });
-    rstars.forEach(element => {
-        element.innerText = "}";
-    });
+    // lstars.forEach(element => {
+    //     element.innerText = "{";
+    // });
+    // rstars.forEach(element => {
+    //     element.innerText = "}";
+    // });
     let sel = 0;
 
     function update_stars(){
         stars.forEach(elem =>{
                 if (parseInt(elem.id[4]) <= sel){
-                    elem.style.background_color = "#FFFF00";
+                    elem.style.backgroundColor = "#FFFF00";
                 } else {
-                    elem.style.background_color = "#FFFFFF";
+                    elem.style.backgroundColor = "#FFFFFF";
                 }
             });
     }

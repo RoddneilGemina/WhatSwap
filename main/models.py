@@ -33,6 +33,9 @@ class Offer(models.Model):
     is_directed = models.BooleanField(default = False)
     directed_offer_id = models.ForeignKey('self', on_delete=models.CASCADE, null = True, blank = True)
 
+    # added
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
+
     class OfferStatus(models.TextChoices):
         CLOSED = 'CLOSED'
         PENDING = 'PENDING'

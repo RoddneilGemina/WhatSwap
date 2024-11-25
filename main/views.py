@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Item, Auction, Offer
 from .forms import ItemForm, AddItemForm, CreateAuctionForm, AuctionUpdateForm, OfferForm
 from .forms import UserUpdateForm
+import copy
 
 # Create your views here.
 def landing_page(request):
@@ -139,6 +140,7 @@ def trade_create(request,pk):
         offer.offer_title = request.POST.get('offer_title') #form.cleaned_data['offer_title']
         offer.offer_desc = request.POST.get('offer_desc') #form.cleaned_data['offer_desc']
         offer.offer_item = item
+        offer.author = request.user
         offer.save()
         return redirect('trade_browse')
     else: 
@@ -163,13 +165,13 @@ def directed_select_item(request,pk):
         doffer.offer_item = ditem
         doffer.is_directed = True
         doffer.directed_offer_id = target
+        doffer.author = request.user
         doffer.save()
         return redirect('trade_info', pk)
     return render(request,"trading/directed_select_item.html",{'items':items, 'target': target})
 
 def select_item(request):
-    items = Item.objects.filter(owner=request.user.id)
-    offers = Offer.objects.all()
+    offers = Offer.objects.filter(author=request.user)
     ritems = Item.objects.filter(owner=request.user.id)
     ditems = []
     items = []
@@ -178,6 +180,10 @@ def select_item(request):
     for i in ritems:
         if i not in ditems:
             items.append(i)
+    for o in offers:
+        if o.offer_status == 'CLOSED':
+            items.append(o.offer_item)
+
     return render(request,"trading/select_item.html",{'items':items})
 
 def trade_info(request,pk):
@@ -187,7 +193,27 @@ def trade_info(request,pk):
         if request.POST.get('is_deleting')=="true":
             offer.delete()
             return redirect('trade_browse')
+        elif request.POST.get('is_accepted')=="true":
+            itemA = offer.directed_offer_id.offer_item
+            itemB = offer.offer_item
+            
+            temp = copy.deepcopy(itemA)
+            itemA.owner = itemB.owner
+            itemB.owner = temp.owner
+
+            itemA.save()
+            itemB.save()
+            
+            offer.directed_offer_id.offer_status = 'CLOSED'
+            offer.offer_status = 'CLOSED'
+            offer.save()
+            offer.directed_offer_id.save()
+            return redirect('trade_browse')
+        elif request.POST.get('is_accepted')=="false":
+            offer.delete()
+            return redirect('trade_browse')
     return render(request,"trading/trade_info.html",{'offer':offer,'doffers':doffers})
+
 def trade_update(request,pk):
     if request.method == 'POST':
         offer = Offer.objects.get(pk=int(pk))
