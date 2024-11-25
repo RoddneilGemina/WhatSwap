@@ -1,12 +1,22 @@
-<div class="card" style="width: 18rem; margin: 10px;">
-    <div style="background-image: url('{{auctionitem.auction_item_id.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px"></div>
+<div class="card" style="width: 18rem; margin: 10px;" onclick="window.location.href = '../auctions/auction_item/{{auctionitem.pk}}'">
+    <!-- <div style="margin-top: 30px;background-image: url('{{auctionitem.auction_item_id.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px"></div> -->
+    <img src="{{auctionitem.auction_item_id.image_url}}" src="https://www.svgrepo.com/show/451667/image-missing.svg" 
+          class="card-img-top img-thumbnail" alt="{{auctionitem.auction_title}}" 
+          style="object-fit: cover;    width: 100%;    height: 275px;">
     <div class="card-body">
-      <h5 class="card-title">{{ auctionitem.auction_title }}</h5>
-      <h6 class="card-subtitle mb-2 text-body-secondary">{{ auctionitem.auction_item_id.owner }}</h6>  
-      <p class="card-text">{{ auctionitem.auction_description }}</p>
+      <h5 class="card-title">{{ auctionitem.auction_title | truncatechars:20 }}</h5> 
+        <p class="card-text">
+          <b style="color:green">
+            {% if auctionitem.highest_bid == 0 %}
+              ₱{{ auctionitem.minimum_bid }} Minimum<br>
+              No bidders yet!
+            {% else %}
+              ₱{{ auctionitem.highest_bid }} <br>
+              Current Bid
+            {% endif %}
+          </b> 
+          <br>
+          Until <b>{{ auctionitem.end_date | date:'M. j, Y @ h:i A' }}</b> 
+        </p>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">₱{{ auctionitem.minimum_bid }}</li>
-      <li class="list-group-item">Until {{ auctionitem.end_date }}</li>
-    </ul>
   </div>
