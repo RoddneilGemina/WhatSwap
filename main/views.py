@@ -181,7 +181,7 @@ def select_item(request):
         if i not in ditems:
             items.append(i)
     for o in offers:
-        if o.offer_status == 'CLOSED':
+        if o.offer_status == 'CLOSED' and o.offer_item.owner == request.user.id:
             items.append(o.offer_item)
 
     return render(request,"trading/select_item.html",{'items':items})

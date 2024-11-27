@@ -9,14 +9,12 @@
 </head>
 <body style="background-color: #1d528b">
     {% include "common/navbar.html"%}
-    <div style="padding:3%">
-        <div style="padding: 2%; margin-left: 10%; margin-right: 10%;"></div>
-            <h1 style="color: white"><b>Your Items</b></h1>
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 3%">
-                {% for item in items %}
-                    {% include "trading/item_preview.html" %}
-                {% endfor %}
-            </div>
+    <div class="pagecontent-div">
+        <h1 style="color: white"><b>Your Items</b></h1>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 3%">
+            {% for item in items %}
+                {% include "trading/item_preview.html" %}
+            {% endfor %}
         </div>
     </div>
 </body>

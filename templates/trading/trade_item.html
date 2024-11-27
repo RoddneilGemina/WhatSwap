@@ -11,7 +11,17 @@
                 </div>
                 <p style="margin-top: 5%"></p>
                 <h5>{{offer.offer_title}}</h5>
+                <h6 class="itemcard-desc"><b>item:</b> {{offer.offer_item.item_name}}</h6>
                 <h6 class="itemcard-desc">by {{offer.author}}</h6>
+                {% if offer.offer_status == "CLOSED" %}
+                <h6 class="itemcard-desc" style="color: red">Unavailable</h6>
+                {% elif offer.offer_status == "STANDBY" %}
+                <h6 class="itemcard-desc" style="color: green">Available</h6>
+                {% elif offer.offer_status == "ACCEPTED" %}
+                <h6 class="itemcard-desc" style="color: blue">Accepted</h6>
+                {% else %}
+                <h6 class="itemcard-desc" style="color: red">Rejected</h6>
+                {% endif %}
             </div>
         </ul>
     </body>

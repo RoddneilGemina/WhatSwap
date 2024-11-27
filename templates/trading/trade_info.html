@@ -14,19 +14,42 @@
             </div>
             <div style="margin-right: 5%; margin-left: 5%; padding: 5%;">
                 <div style="width: 100%; display: flex; margin-right: 1%; margin-top: 2%;">
-                    <div style="background-image: url('{{offer.offer_item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; height: 300px; width: 55%;">
+                    <div style="background-image: url('{{offer.offer_item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; height: 400px; width: 55%; margin-top: 1.5%">
                     </div>
                     <div style=" margin-left: 30px; width: 45%; display: flex; justify-content: center; flex-direction: column;"> 
-                        <h1 style="margin-top: 10%">{{offer.offer_title}}</h1>
-                        <h6>by {{offer.author}}</h6>
-                        <br><br>
-                        <h6>Date</h6>
-                        <p>{{offer.date_offered}}</p>
+                        <h2>{{offer.offer_title}}</h2>
+                        {% if offer.offer_status == "STANDBY" %}
+                                <h6 style="color: green">Available</h4>
+                            {% elif offer.offer_status == "CLOSED" %}
+                                <h6 style="color: red">Closed</h4>
+                            {% elif offer.offer_status == "ACCEPTED" %}
+                                <h6 style="color: blue">Accepted</h4>   
+                            {% else %}
+                                <h6 style="color: red">Rejected</h4>
+                        {% endif %}
+                        <div class="smallheader">
+                            <h6>Item</h6>   
+                        </div> 
+                        <div class="container-desc">
+                            {{offer.offer_item.item_name}}
+                        </div>
+                        <div class="smallheader">
+                            <h6>Author</h6>   
+                        </div> 
+                        <div class="container-desc">
+                            {{offer.author}}
+                        </div>
+                        <div class="smallheader">
+                            <h6>Date</h6>   
+                        </div> 
+                        <div class="container-desc">
+                            {{offer.date_offered}}
+                        </div>
                     </div>
                 </div>
                 <div style="display: flex;">
                     <div style="padding-left: 1%; padding-right: 1%; padding-top: 2%; width: 55%; overflow-wrap: break-word;">
-                        <div>
+                        <div class="smallheader">
                             <h6>Description</h6>   
                         </div> 
                         <div class="container-desc">
@@ -36,8 +59,9 @@
                     <div style = "width: 45%; display: flex; flex-direction: column;">
                         <div style="height: 50% "></div>
                         <div style="height:inherit;">
-                                {% if user.is_authenticated %}
-                                    {% if request.user == offer.offer_item.owner %}
+                                {% if user.is_authenticated%}
+                                    {% if offer.offer_status is not "STANDBY"%}
+                                    {% elif request.user == offer.offer_item.owner %}
                                         <button type="button" class="btn btn-primary" onclick="window.location.href = '/trades/trade_update/{{offer.pk}}'">
                                             EDIT TRADE
                                         </button>
@@ -62,7 +86,10 @@
                                         {% else %}
                                             {% if offer.is_directed %}
                                             {% else %}
-                                                <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px    ;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">OFFER</p></button>
+                                                {% if offer.offer_status == "CLOSED" %}
+                                                {% else %}
+                                                    <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px    ;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">OFFER</p></button>
+                                                {% endif %}
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}
