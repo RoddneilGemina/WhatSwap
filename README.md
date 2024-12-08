@@ -47,11 +47,11 @@ View the project's Gantt chart on Google sheets [here](https://docs.google.com/s
 
 ### Wireframe 
 
+View the project wireframe on Figma [here](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1).
+
 [![Wireframe 1](/documentation/Figma-1.png "Wireframe (Figma) | WhatSwap")](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1)
 
 [![Wireframe 2](/documentation/Figma-2.png "Wireframe (Figma) | WhatSwap")](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1)
-
-View the project wireframe on Figma [here](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1).
 
 
 ## Tech Stack
