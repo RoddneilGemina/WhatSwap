@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Item, Auction, Offer
+from .models import Item, Auction, Offer, Rating
 from .forms import ItemForm, AddItemForm, CreateAuctionForm, AuctionUpdateForm, OfferForm
 from .forms import UserUpdateForm
 import copy
@@ -66,14 +66,32 @@ def trade_item(request,pk):
     item = get_object_or_404(Item, pk=pk)
     return render(request,"trading/iteminfo.html",{'item':item})
 
-def profile(request):
+def profile(request,pk):
+    user_get = get_object_or_404(User,pk=pk)
+    ratings = Rating.objects.filter(ratee=user_get)
+    # ratings = Rating.objects.all()
+    # for i in ratings:
+    #     i.delete()
     if request.method == 'POST':
-        print("DELETE AAA")
         if request.POST.get('is_deleting')=="true":
-            print("DELETE BBB")
             request.user.delete()
             return redirect('landing_page')
-    return render(request,"profile/my_profile.html")
+        if request.POST.get('is_rating')=="true":
+            rating = Rating()
+            rating.ratee = get_object_or_404(User,pk=int(request.POST.get('ratee_id')))
+            rating.rater = get_object_or_404(User,pk=int(request.POST.get('rater_id')))
+            rating.value = float((request.POST.get('rating_value')))
+            rating.save()
+            return redirect(f"/profile/{pk}")
+        if request.POST.get('rating_operation')=='true':
+            if request.POST.get('rating_update_id') != None:
+                rating = get_object_or_404(Rating,pk=int(request.POST.get('rating_update_id')))
+                print(f"update rating {rating}") #INCOMPLETE
+            elif request.POST.get('rating_delete_id') != None:
+                rating = get_object_or_404(Rating,pk=int(request.POST.get('rating_delete_id')))
+                rating.delete()
+            return redirect(f"/profile/{pk}")
+    return render(request,"profile/my_profile.html",{"user_get":user_get,"ratings":ratings})
 
 def inventory(request):
     items = Item.objects.filter(owner=request.user.id)
@@ -96,6 +114,13 @@ def add_item(request):
 
 def view_item(request,pk):
     item = get_object_or_404(Item, pk=pk)
+    if request.method == 'POST':
+        if request.POST.get('item_update_id') != None:
+            print("UPDATE ITEM") # INCOMPLETE
+        if request.POST.get('item_delete_id') != None:
+            item.delete()
+            print("DELETED ITEM")
+            return redirect('/profile/inventory')
     return render(request,"profile/view_item.html",{'item':item})
 
 def update_account(request):

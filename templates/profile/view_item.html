@@ -21,6 +21,20 @@
                         <br><br>
                         <h6>Date Published</h6>
                         <p>{{item.created_at}}</p>
+                        <div style="display:flex; flex-direction: row;">
+                            {% if item.owner == user %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_update_id" value="{{ item.pk }}">
+                                <button class="btn btn-success" type="submit">Update Item</button>
+                            </form>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_delete_id" value="{{ item.pk }}">
+                                <button class="btn btn-danger" type="submit">Delete Item</button>
+                            </form>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 <div style="display: flex;">

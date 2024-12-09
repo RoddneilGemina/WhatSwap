@@ -12,11 +12,17 @@
     <div style="padding:5%;"> 
         <h1 style="color: white">Welcome To Your Account</h1>
         <div style="background-color:white; padding: 20px; border-radius: 10px;">
-            <b>Username:</b><br>&nbsp &nbsp &nbsp{{user.username}} <br><hr>
-            <b>First Name:</b><br>&nbsp &nbsp &nbsp{{user.first_name}} <br><hr>
-            <b>Last Name:</b><br>&nbsp &nbsp &nbsp{{user.last_name}} <br><hr>
-            <b>Email:</b><br>&nbsp &nbsp &nbsp{{user.email}} <br><hr>
-            <b>Rating:</b><br>{% include "profile/rating_snippet.html" %}<br><hr>
+            <b>Username:</b><br>&nbsp &nbsp &nbsp{{user_get.username}} <br><hr>
+            <b>First Name:</b><br>&nbsp &nbsp &nbsp{{user_get.first_name}} <br><hr>
+            <b>Last Name:</b><br>&nbsp &nbsp &nbsp{{user_get.last_name}} <br><hr>
+            <b>Email:</b><br>&nbsp &nbsp &nbsp{{user_get.email}} <br><hr>
+            <b>Rate User:</b><br>{% include "profile/rating_snippet.html" %}<br><hr>    
+            {% for rating in ratings|slice:":1" %}
+                <b>Ratings:</b><br>
+            {% endfor %}
+            {% for rating in ratings %}
+                {% include "profile/rating_display.html" %} <br>
+            {% endfor %}
             <b>Account Operations:</b><br><br>
             <button class="btn btn-success" onclick="window.location.href = '/profile/update_account'">Update my Account</button>
             <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete my Account</button>

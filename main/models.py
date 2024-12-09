@@ -11,7 +11,7 @@ class Rating(models.Model):
     ratee = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank = True, related_name="Ratee")
     rater = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank = True, related_name="Rater")
     #comment = models.TextField(max_length=256, null = True, blank = True)
-    value = models.FloatField(name = "Rating",default=1.0)
+    value = models.FloatField(default=1.0)
     def __str__(self):
         return f"{self.rater} for {self.ratee}: {self.value}"
 

@@ -6,23 +6,31 @@
     }
 </style>
 
-
+<input type="hidden" name="is_rating" value="true">
 <button class="star star-left " id="star0"  >{% include "profile/starL.html" %}</button>
-<button class="star star-right " id="star1" ></button>
-<button class="star star-left " id="star2" ></button>
-<button class="star star-right " id="star3" ></button>
-<button class="star star-left " id="star4"  ></button>
-<button class="star star-right " id="star5" ></button>
-<button class="star star-left " id="star6"  ></button>
-<button class="star star-right " id="star7" ></button>
-<button class="star star-left " id="star8"  ></button>
-<button class="star star-right" id="star9"></button>
+<button class="star star-right " id="star1" >{% include "profile/starL.html" %}</button>
+<button class="star star-left " id="star2" >{% include "profile/starL.html" %}</button>
+<button class="star star-right " id="star3" >{% include "profile/starL.html" %}</button>
+<button class="star star-left " id="star4"  >{% include "profile/starL.html" %}</button>
+<button class="star star-right " id="star5" >{% include "profile/starL.html" %}</button>
+<button class="star star-left " id="star6"  >{% include "profile/starL.html" %}</button>
+<button class="star star-right " id="star7" >{% include "profile/starL.html" %}</button>
+<button class="star star-left " id="star8"  >{% include "profile/starL.html" %}</button>
+<button class="star star-right" id="star9">{% include "profile/starL.html" %}</button>
 <br><br>
-<input type="number" value="123">
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="is_rating" value="true">
+    <input type="hidden" name="ratee_id" value='{{user_get.pk}}'>
+    <input type="hidden" name="rater_id" value='{{user.pk}}'>
+    <label for="rating_value">Rating:</label><input type="number" id="rating_value" name="rating_value" value="1">
+    <button type="submit">Submit Rating</button>
+</form>
 <script>
     lstars = document.querySelectorAll(".star-left");
     rstars = document.querySelectorAll(".star-right");
     stars  = document.querySelectorAll(".star");
+    const rating_input = document.getElementById("rating_value");
     // lstars.forEach(element => {
     //     element.innerText = "{";
     // });
@@ -33,7 +41,7 @@
 
     function update_stars(){
         stars.forEach(elem =>{
-                if (parseInt(elem.id[4]) <= sel){
+                if (parseInt(elem.id[4]) <= sel*2 + 1){
                     elem.style.backgroundColor = "#FFFF00";
                 } else {
                     elem.style.backgroundColor = "#FFFFFF";
@@ -42,9 +50,14 @@
     }
     stars.forEach(element => {
         element.addEventListener("mouseover", (e)=>{
-            sel = parseInt(element.id[4]);
+            sel = parseInt(element.id[4]) / 2.0 - 0.5;
             console.log(sel);
             update_stars();
+            rating_input.setAttribute("value",sel+1);
         });
     });
+    // rating_input.addEventListener("change", (e)=>{
+    //     sel = rating_input.getAttribute("value");
+    //     update_stars();
+    // });
 </script>

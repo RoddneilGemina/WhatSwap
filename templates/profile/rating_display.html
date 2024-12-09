@@ -1,0 +1,17 @@
+<div style="display:flex; flex-direction: row;">
+    {{ rating }}
+    {% if rating.rater.pk == user.pk %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="rating_operation" value="true">
+        <input type="hidden" name="rating_update_id" value="{{ rating.pk }}">
+        <button class="btn btn-success" type="submit">Update Rating</button>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="rating_operation" value="true">
+        <input type="hidden" name="rating_delete_id" value="{{ rating.pk }}">
+        <button class="btn btn-danger" type="submit">Delete Rating</button>
+    </form>
+    {% endif %}
+</div>
