@@ -51,6 +51,8 @@ class Auction(models.Model):
     auction_title = models.CharField(max_length = 100)
     auction_description = models.TextField(max_length = 500)
 
+    is_deleted = models.BooleanField(default = False)
+
     start_date = models.DateTimeField(default = tz.now)
     end_date = models.DateTimeField(default = tz.now)
 

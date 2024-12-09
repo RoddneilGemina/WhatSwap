@@ -10,7 +10,7 @@
     <div class="pagecontent-div">
         <h1 class="pageheader"><b>Trade Items</b></h1>
         {% if user.is_authenticated %}
-                <button class="btn-primary"><a href = "select_item/" style="text-decoration: none; color: white">Create Trade</a></button>
+                <button class="btn-primary"><a href = "select_item/" style="text-decoration: none; color: white">New Trade</a></button>
         {% endif %}
         <div class="itemcontainer">
             {% for offer in offers %}

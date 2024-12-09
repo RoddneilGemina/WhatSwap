@@ -15,7 +15,7 @@ def trade_browse(request):
     return render(request,"trading/browse.html",{'offers' : offers})
 
 def auction_browse(request):
-    auctionitems = Auction.objects.all()
+    auctionitems = Auction.objects.filter(is_deleted = False)
     return render(request,"auctions/browse.html", {'auctionitems' : auctionitems})
 
 
@@ -47,6 +47,12 @@ def auction_create(request):
 
 def auction_item(request,pk):
     auction = get_object_or_404(Auction, pk=pk)
+
+    if request.method == 'POST':
+        if request.POST.get('isDeleting') == 'true':
+            auction.is_deleted = True
+            auction.save()
+
     return render(request,"auctions/auction.html",{'auction':auction})
 
 def trade_create(request):
@@ -206,7 +212,7 @@ def select_item(request):
         if i not in ditems:
             items.append(i)
     for o in offers:
-        if o.offer_status == 'CLOSED':
+        if o.offer_status == 'CLOSED' and o.offer_item.owner == request.user.id:
             items.append(o.offer_item)
 
     return render(request,"trading/select_item.html",{'items':items})

@@ -42,7 +42,7 @@
                     </h6>
                     <br>
                     
-                    <!-- {% if auction.highest_bidder == Null %} -->
+                    <!--  if auction.highest_bidder == Null -->
                     <h4><b style="color:green">₱{{auction.highest_bid}}</b> <br> <b>Current Highest Bid</b></h4>
                     <h5>Bid by {{auction.highest_bidder_id}}</h5>
                     <h6>From ₱{{auction.minimum_bid}} Minimum</h6>
@@ -57,9 +57,13 @@
                                 <button type="button" class="btn btn-primary" onclick="window.location.href = '/auctions/auction_update/{{auction.pk}}'">
                                     EDIT AUCTION
                                 </button>
-                                <button type="button" class="btn btn-danger">
-                                    DELETE AUCTION
-                                </button>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="isDeleting" value="true">
+                                    <button type="submit" class="btn btn-danger">
+                                        DELETE AUCTION
+                                    </button>
+                                </form>
                             {% else %}
                                 <button type="button" class="btn btn-primary btn-lg" 
                                 data-bs-toggle="modal" data-bs-target="#modalMakeBid">

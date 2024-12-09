@@ -5,13 +5,22 @@
     </head>
     <body style="background-color: #1d528b;">
         <ul>
-            <div style="background-color: #d3d3d3; border-radius: 10px; display: flex; justify-content: center; flex-direction: column; text-align: left; height: 300px; width: 200px; padding: 20px;" onclick="window.location.href = '/trades/trade_info/{{doffer.pk}}'">
+            <div class="itemcard" onclick="window.location.href = '/trades/trade_info/{{doffer.pk}}'">
                 <div style="background-image: url('{{doffer.offer_item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px">
                 <br>
                 </div>
                 <p style="margin-top: 5%"></p>
                 <h5>{{doffer.offer_title}}</h5>
-                <h6>by {{doffer.author}}</h6>
+                <h6>by {{doffer.offer_item.owner.username}}</h6>
+                {% if doffer.offer_status == "CLOSED" %}
+                <h6 class="itemcard-desc" style="color: red">Unavailable</h6>
+                {% elif doffer.offer_status == "STANDBY" %}
+                <h6 class="itemcard-desc" style="color: green">Available</h6>
+                {% elif doffer.offer_status == "ACCEPTED" %}
+                <h6 class="itemcard-desc" style="color: blue">Accepted</h6>
+                {% else %}
+                <h6 class="itemcard-desc" style="color: red">Rejected</h6>
+                {% endif %}
             </div>
         </ul>
     </body>
