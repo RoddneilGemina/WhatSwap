@@ -234,7 +234,7 @@ def directed_select_item(request,pk):
         doffer.is_directed = True
         doffer.directed_offer_id    = target
         doffer.author = request.user
-        doffer.offer_desc = "offer for "+ditem.item_name
+        doffer.offer_desc = "offer for "+doffer.directed_offer_id.offer_item.item_name
         doffer.offer_status = "PENDING"
         doffer.save()
         return redirect('trade_info', pk)
