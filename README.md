@@ -16,11 +16,11 @@ The platform provides robust account management, allowing users to create accoun
 ### User Profile  
 Users can personalize their profiles by adding personal information, catalogs of items available for trade or auction, and other optional details. Each profile showcases user ratings and reviews, fostering a transparent and reliable community. Furthermore, users can rate and review others to maintain a trustworthy ecosystem on the platform.  
 
-### Bidding  
-The platform supports an interactive bidding system where users can browse auctioned items and place valid bids. This feature creates an engaging, competitive environment for users to bid for items of interest and actively participate in auctions.  
-
 ### Auctioning  
 Users can list items for auction with comprehensive options to define bidding parameters, including start and end times and valid price ranges. For greater flexibility, auctions without predefined end times can be manually closed by the seller when needed.  
+
+### Bidding  
+The platform supports an interactive bidding system where users can browse auctioned items and place valid bids. This feature creates an engaging, competitive environment for users to bid for items of interest and actively participate in auctions.  
 
 ### Trading  
 The trading feature allows users to upload items for trade, accompanied by detailed descriptions and customizable terms, such as negotiable conditions and logistical preferences (e.g., location or billing). Users maintain control over their listings, with options to mark items as unavailable or remove them entirely.  
