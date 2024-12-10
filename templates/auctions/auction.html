@@ -85,8 +85,12 @@
                                         </button>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary px-3"><i class="fa fa-money-bill" aria-hidden="true"></i> 
-                                    Bid on Item</button>
+                                <!-- <button class="btn btn-primary px-3"><i class="fa fa-money-bill" aria-hidden="true"></i> 
+                                    Bid on Item</button> -->
+                                    <button type="button" class="btn btn-primary btn-lg" 
+                                    data-bs-toggle="modal" data-bs-target="#modalMakeBid">
+                                        Bid on Item
+                                    </button>
                             </div>
                         {% endif %}
                     {% else %}
@@ -122,6 +126,26 @@
         </div>
     </div>
     <!-- Shop Detail End -->
-
+    <div class="modal fade" id="modalMakeBid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Bid on {{auction.auction_title}}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <input class="form-control" type="hidden" id="s" name="isBidding" value="true" step="0.5">
+                <div class="modal-body">                
+                    <label for="minBid" class="form-label"><b>Bid Amount (₱)</b></label>
+                    <input class="form-control" type="number" id="minimum_bid" name="bid_amt" value="0.0" step="0.5">
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Confirm My Bid</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
     {% include 'common/foot.html' %}
 </body>
