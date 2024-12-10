@@ -1,0 +1,130 @@
+{% load static %}
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Cebu City, Cebu</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@whatswap.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+063 123 456 7890</p>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">Quick Swap</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Swap</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Auction</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h6 class="text-secondary text-uppercase mb-3">Follow Us</h6>
+                    <p>Follow us on social media to keep updated on the platform!</p>
+                    <div class="d-flex">
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="col-md-6 px-xl-0">
+            <p class="mb-md-0 text-center text-md-left text-secondary">
+                &copy; <a class="text-primary" href="#">WhatSwap</a>. All Rights Reserved.
+            </p>
+        </div>
+        <div class="col-md-6 px-xl-0 text-center text-md-right">
+            <img class="img-fluid" src="img/payments.png" alt="">
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+<script>
+//     var theswap = document.getElementById('THESWAP');
+//     bgColor = window.getComputedStyle(theswap, null).getPropertyValue('background-color');
+//     //alert((bgColor)); 255 211 51
+//     function hexToRgb(hex) {
+//     // Remove the # if it's present
+//     hex = hex.replace(/^#/, '');
+
+//     // Ensure the hex is valid
+//     if (hex.length === 3) {
+//         // Convert shorthand hex to full form (e.g., #f00 -> #ff0000)
+//         hex = hex.split('').map(char => char + char).join('');
+//     }
+
+//     if (hex.length !== 6) {
+//         throw new Error('Invalid HEX format. Please use #RRGGBB or #RGB.');
+//     }
+
+//     // Extract the RGB values
+//     const r = parseInt(hex.slice(0, 2), 16); // Red
+//     const g = parseInt(hex.slice(2, 4), 16); // Green
+//     const b = parseInt(hex.slice(4, 6), 16); // Blue
+
+//     return `rgb(${r}, ${g}, ${b})`;
+// }
+//     function rgbToHex(rgb) {
+//         // Extract the numbers from the RGB string using a regular expression
+//         const result = rgb.match(/\d+/g);
+
+//         if (result && result.length === 3) {
+//             // Convert each RGB component to a 2-digit hexadecimal
+//             const r = parseInt(result[0]).toString(16).padStart(2, '0');
+//             const g = parseInt(result[1]).toString(16).padStart(2, '0');
+//             const b = parseInt(result[2]).toString(16).padStart(2, '0');
+
+//             // Combine the components into a hex color
+//             return `#${r}${g}${b}`;
+//         } else {
+//             throw new Error('Invalid RGB format. Please use "rgb(r, g, b)".');
+//         }
+//     }
+
+//     function changeColor(oldColor, newColor) {
+//        var all = document.getElementsByTagName('*');
+    
+//        Array.prototype.forEach.call(all, function(element){
+//         var curr = window.getComputedStyle(element, null).getPropertyValue('background-color').trim();
+//          if (curr === oldColor.trim()) {
+//            element.style.backgroundColor = newColor;
+//            element.style.setProperty("background-color", newColor, "important");
+//          }else if (curr === oldColor.trim()) {
+//            element.style.color = newColor;
+//            element.style.setProperty("color", newColor, "important");
+//          }
+//        })  
+//     }
+//     const oldcolors = ['#ffd333','#e6b400'];
+//     const newcolors = ['#FF0000','#FF0000'];
+//     for (var i = 0; i < oldcolors.length; i++){
+//         changeColor(hexToRgb(oldcolors[i]),hexToRgb(newcolors[i]));
+//         //alert(oldcolors[i]);
+//     }
+
+
+    
+</script>

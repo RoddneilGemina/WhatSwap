@@ -1,16 +1,28 @@
-<ul style="background-color: #1d528b;">
-    <div style="background-color: #d3d3d3; border-radius: 10px; display: flex; justify-content: center; flex-direction: column; text-align: left; height: 300px; width: 200px; padding: 20px;">
-        <div style="background-image: url('{{item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px">
-        <br>
+
+            <div class="col-lg-10 col-md-10 col-sm-2 pb-1" onclick="document.getElementById('dofferForm'+{{item.pk}}).submit()">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <div style="width: 100%; height: 150px; overflow: hidden;">
+                            <img class="img-fluid w-100" style="width: 100%; height: 100%; object-fit: cover;" src="{{ item.image_url.url }}" alt="https://www.svgrepo.com/show/451667/image-missing.svg">
+                        </div>
+                        <form id="dofferForm{{item.pk}}" method="POST">
+                            {% csrf_token %}
+                        <input type="hidden" name = "item" value = '{{item.pk}}'>
+                        <input type="hidden" name = "target" value = '{{target.pk}}'>
+                        <input type="hidden" name = "desc" value = '{{target.offer_item}}'>
+                        </form>
+            <!-- <div class="product-action">
+                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+            </div> -->
         </div>
-        <p style="margin-top: 5%"></p>
-        <h5>{{item.item_name}}</h5>
-        <h6>by {{item.owner}}</h6>
-        <form method = "POST">
-            {% csrf_token %}
-            <input type="hidden" name = "item" value = '{{item.pk}}'>
-            <input type="hidden" name = "target" value = '{{target.pk}}'>
-            <button type="submit" >SELECT</button>
-        </form>
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="">{{ doffer.offer_title | truncatechars:10 }}</a>
+            <div class=" align-items-center justify-content-center mt-2">
+                <h6 class="itemcard-desc">{{item.item_name | truncatechars:10}}</h6>
+            </div>
+        </div>
     </div>
-</ul>
+</div>

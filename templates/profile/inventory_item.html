@@ -1,10 +1,33 @@
-<ul style="background-color: #1d528b;">
+<!-- <ul style="background-color: #1d528b;">
     <div style="background-color: #d3d3d3; border-radius: 10px; display: flex; justify-content: center; flex-direction: column; text-align: left; height: 300px; width: 200px; padding: 20px;" onclick="window.location.href = '/profile/inventory/{{item.pk}}'">
-        <div style="background-image: url('{{item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px">
+        <div style="background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px">
         <br>
         </div>
         <p style="margin-top: 5%"></p>
         <h5>{{item.item_name}}</h5>
         <h6>by {{item.owner}}</h6>
     </div>
-</ul>
+</ul> -->
+<div class="col-lg-3 col-md-6 col-sm-6 pb-1">
+    <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden">
+            <div style=" width: 100%; height: 250px; overflow: hidden;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src="{{ item.image_url.url }}" alt="" onerror="this.onerror=null; this.src='fallback-image.jpg';">
+            </div>
+            <div class="product-action">
+                <a class="btn" href="/profile/inventory/{{item.pk}}"><i class="fa fa-eye fa-4x" aria-hidden="true"></i></a>
+                <!-- <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> -->
+            </div>
+        </div>
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="/profile/inventory/{{item.pk}}">{{ item.item_desc | truncatechars:22 }}</a>
+            <div class=" align-items-center justify-content-center mt-2">
+                    <h4><b>{{ item.item_name }}</b></h4>
+            </div>
+          
+        </div>
+    </div>
+</div>

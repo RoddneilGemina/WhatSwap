@@ -3,15 +3,9 @@
 
 **WhatSwap** is an online platform where users can auction their personally owned items and participate in bidding on items posted by others. It aims to provide a user-friendly and accessible system for buying, selling, and trading through auctions. The platform caters to individuals looking to sell unwanted items or discover unique items by competing in auctions.
 
+![Screenshot](documentation/ss-1.png)
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-
-## Demo
-
-Insert gif or link to demo
+![Screenshot](documentation/ss-2.png)
 
 
 ## Features
@@ -37,9 +31,15 @@ This feature lets users browse and explore trade offers, send trade requests, an
 
 ## Documentation
 
+### Functional Requirements Document
+
+Read the full functional requirements document of the project [here](/documentation/Functional%20Requirements%20Document.pdf).
+
 ### Gantt Chart
 
 View the project's Gantt chart on Google sheets [here](https://docs.google.com/spreadsheets/d/1INmJV9SM053FLV47Zx4b3ukN1nnEq0lBncnSvUJeo88/edit?usp=sharing).
+
+[![Gantt Chart](/documentation/Gantt.png)](https://docs.google.com/spreadsheets/d/1INmJV9SM053FLV47Zx4b3ukN1nnEq0lBncnSvUJeo88/edit?usp=sharing)
 
 ### Entity Relationship Diagram 
 
@@ -49,9 +49,7 @@ View the project's Gantt chart on Google sheets [here](https://docs.google.com/s
 
 View the project wireframe on Figma [here](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1).
 
-[![Wireframe 1](/documentation/Figma-1.png "Wireframe (Figma) | WhatSwap")](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1)
-
-[![Wireframe 2](/documentation/Figma-2.png "Wireframe (Figma) | WhatSwap")](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1)
+[![Wireframe](/documentation/Wireframe.png "Wireframe (Figma) | WhatSwap")](https://www.figma.com/design/DP48ujQ1NWRMKSwKREbaiF/WhatSwap?node-id=0-1&t=6tVO0BtAORtvjecN-1)
 
 
 ## Tech Stack
@@ -64,7 +62,15 @@ View the project wireframe on Figma [here](https://www.figma.com/design/DP48ujQ1
 
 **Database:** MySQLite
 
-## Authors
+
+## Contributors
+
+<a href="https://github.com/RoddneilGemina/WhatSwap/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=RoddneilGemina/WhatSwap" />
+</a>
+
+
+## Contact
 
 **Felisa Bascug** - [@cusgan](https://www.github.com/cusgan) | felisamelaniefay.bascug@cit.edu
 
@@ -78,5 +84,5 @@ View the project wireframe on Figma [here](https://www.figma.com/design/DP48ujQ1
 - [README Editor](https://readme.so/)
  - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
  - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [HTML Codex](https://htmlcodex.com/)
 

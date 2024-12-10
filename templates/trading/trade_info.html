@@ -4,83 +4,75 @@
     <title>Item Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {% include 'common/head.html' %}
 </head>
-<body style="background-color: #1d528b;">
+<body>
     {% include "common/navbar.html"%}
-    <div style="display: flex; justify-content: center">
-        <div class="infocard">
-            <div style="margin-left: 1.5%; margin-top: 1%; margin-bottom: 2%">
-                <a href="../../" style="text-decoration: none; font-size: 12px; color: #19487b; float: left">Back</a> 
-            </div>
-            <div style="margin-right: 5%; margin-left: 5%; padding: 5%;">
-                <div style="width: 100%; display: flex; margin-right: 1%; margin-top: 2%;">
-                    <div style="background-image: url('{{offer.offer_item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; height: 400px; width: 55%; margin-top: 1.5%">
-                    </div>
-                    <div style=" margin-left: 30px; width: 45%; display: flex; justify-content: center; flex-direction: column;"> 
-                        <h2>{{offer.offer_title}}</h2>
-                        {% if offer.offer_status == "STANDBY" %}
-                                <h6 style="color: green">Available</h4>
-                            {% elif offer.offer_status == "CLOSED" %}
-                                <h6 style="color: red">Closed</h4>
-                            {% elif offer.offer_status == "ACCEPTED" %}
-                                <h6 style="color: blue">Accepted</h4>   
-                            {% else %}
-                                <h6 style="color: red">Rejected</h4>
-                        {% endif %}
-                        <div class="smallheader">
-                            <h6>Item</h6>   
-                        </div> 
-                        <div class="container-desc">
-                            {{offer.offer_item.item_name}}
-                        </div>
-                        <div class="smallheader">
-                            <h6>Author</h6>   
-                        </div> 
-                        <div class="container-desc">
-                            {{offer.author}}
-                        </div>
-                        <div class="smallheader">
-                            <h6>Date</h6>   
-                        </div> 
-                        <div class="container-desc">
-                            {{offer.date_offered}}
+
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="{{ offer.offer_item.image_url.url }}" alt="https://www.svgrepo.com/show/451667/image-missing.svg">
                         </div>
                     </div>
                 </div>
-                <div style="display: flex;">
-                    <div style="padding-left: 1%; padding-right: 1%; padding-top: 2%; width: 55%; overflow-wrap: break-word;">
-                        <div class="smallheader">
-                            <h6>Description</h6>   
-                        </div> 
-                        <div class="container-desc">
-                            {{offer.offer_desc}}
-                        </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{offer.offer_title}} 
+                        {% if offer.offer_status == 'STANDBY' %} <span class="badge text-bg-success">
+                        {% elif offer.offer_status == 'PENDING' %} <span class="badge text-bg-secondary">
+                        {% elif offer.offer_status == 'CLOSED' %} <span class="badge text-bg-danger">
+                        {% elif offer.offer_status == 'ACCEPTED' %} <span class="badge text-bg-dark">
+                        {% else %} <span class="badge text-bg-danger">
+                        {% endif %}
+                        {{offer.offer_status}}
+                    </h3>
+                    <h6>Posted by <b><a href = "/profile/{{offer.author.pk}}/">{{offer.author}}</a></b></h6>
+                    <hr>
+
+                    <div class="d-flex flex-column align-items-left mt-2">
+                        <b>Item  </b>&nbsp&nbsp&nbsp{{offer.offer_item}}</b>
                     </div>
-                    <div style = "width: 45%; display: flex; flex-direction: column;">
-                        <div style="height: 50% "></div>
-                        <div style="height:inherit;">
-                                {% if user.is_authenticated%}
-                                    {% if offer.offer_status is not "STANDBY"%}
-                                    {% elif request.user == offer.offer_item.owner %}
-                                        <button type="button" class="btn btn-primary" onclick="window.location.href = '/trades/trade_update/{{offer.pk}}'">
-                                            EDIT TRADE
+                    
+                    <hr>
+
+                    <div class="d-flex flex-column align-items-left mt-2">
+                        <b>Posted on </b> &nbsp&nbsp&nbsp{{offer.date_offered}}</b>
+                    </div>
+                    <hr>
+                    <div class="d-flex flex-column align-items-left justify-content-left mt-2">
+                        <b>Description</b>
+                        &nbsp&nbsp&nbsp{{offer.offer_desc}}
+                    </div>
+                    <div class="d-flex flex-column align-items-left mt-2">  
+                        <div class="container-fluid py-5">
+                            {% if user.is_authenticated %}
+                                {% if offer.offer_status != "STANDBY" and offer.offer_status != "AVAILABLE" and offer.offer_status != "PENDING"%}
+                                    {% elif request.user == offer.author %}
+                                        <button type="button" class="btn btn-primary btn-lg" style="background-color: #325FFF; color: white" onclick="window.location.href = '/trades/trade_update/{{offer.pk}}'">
+                                            <p style="margin: auto; color: white">EDIT TRADE</p>
                                         </button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                            DELETE TRADE
+                                        <button type="button" class="btn btn-primary btn-lg" style="background-color: red; color: white" data-toggle="modal" data-target="#deleteModal">
+                                            <p style="margin: auto; color: white">DELETE TRADE</p>
                                         </button>
                                         {% include "trading/delete_modal.html" %}
                                     {% else %}
-                                        {% if offer.directed_offer_id.offer_item.owner.id == user.pk %}
+                                        {% if offer.directed_offer_id.author.id == user.pk %}
                                             <div style="display: flex">
                                                 <form method="post">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="is_accepted" value="true">
-                                                    <button type="submit" class="btn-big" style="width: 100px; height: 60px; margin-left: 15px; background-color: limegreen;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">ACCEPT</p></button>
+                                                    <button type="submit" class="btn btn-primary btn-lg" style="margin-right: 20px; width: 150px; height: 60px;  background-color: limegreen; border: none;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="margin: auto; text-decoration: none; color: white;">ACCEPT</p></button>
                                                 </form>
                                                 <form method="post">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="is_accepted" value="false">
-                                                    <button type="submit" class="btn-big" style="width: 100px; height: 60px; margin-left: 10px; background-color: red;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">REJECT</p></button>
+                                                    <button type="submit" class="btn btn-primary btn-lg" style=" width: 150px; height: 60px; background-color: red; border: none;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="margin: auto; text-decoration: none; color: white;">REJECT</p></button>
                                                 </form>
                                             </div>
                                         {% else %}
@@ -88,27 +80,51 @@
                                             {% else %}
                                                 {% if offer.offer_status == "CLOSED" %}
                                                 {% else %}
-                                                    <button class="btn-big" style="width: 100px; height: 60px; margin-left: 15px    ;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white;">OFFER</p></button>
+                                                    <button class="btn btn-primary btn-lg" style="width: 100px; height: 60px;" onclick="window.location.href = '/directed_select_item/{{offer.pk}}'"><p style="text-decoration: none; color: white; margin: auto">OFFER</p></button>
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}
                                 {% else %}
-                                    <button type="button" class="btn btn-primary" disabled>LOG IN TO TRADE</button>                            
+                                    <button class="btn btn-primary btn-lg"> Login to Trade</button>                           
                                 {% endif %}
+                        </div>
+                    </div>
+
+
+                    <br>
+                </div>
+            </div>
+        </div>
+        {{offer.count}}
+        {% if offer.directed_offer_id or count == 0 %}
+        {% else %}
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="bg-light p-30">
+                    <div class="tab-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row px-xl-5">
+                                        <h3 class="mb-4">OFFERS</h3>
+                                        <div class="col">
+                                            <div style="overflow-x: scroll; width: 1225; height: 350px; display: flex; flex-direction: right; background-color: #f8f8f8; padding-top: 10px;">
+                                                {% for doffer in doffers %}
+                                                    {% include "trading/directed_trade_item.html" %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h1 style="margin-left: 30%; margin-bottom: 5%; color: white"><b>Current Offers</b></h1>
-    <div style="display: grid; grid-template-columns: repeat(5, 1fr); margin: auto; padding-left: 30%; margin-bottom: 10%">
-        {% for doffer in doffers %}
-            {% include "trading/directed_trade_item.html" %}
-        {% endfor %}
-    </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% endif %}
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    {% include 'common/foot.html' %}
 </body>

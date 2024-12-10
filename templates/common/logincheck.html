@@ -1,6 +1,6 @@
 {% block content %}
 {% if user.is_authenticated %}
-Logged in as: {{ user.username }}!
+Hello, {{ user.username }}!
 <button class="btn btn-primary" onclick="window.location.href = '/../profile/{{user.pk}}'">My Profile</button>
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}

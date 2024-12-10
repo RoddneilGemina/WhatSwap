@@ -1,28 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Trades</title>
-    </head>
-    <body style="background-color: #1d528b;">
-        <ul>
-            <div class="itemcard" onclick="window.location.href = '/trades/trade_info/{{offer.pk}}'">
-                <div style="background-image: url('{{offer.offer_item.image_url}}'), url('https://www.svgrepo.com/show/451667/image-missing.svg');background-size:cover; width: 150px; height: 150px; margin: auto; border-radius: 10px">
-                <br>
-                </div>
-                <p style="margin-top: 5%"></p>
-                <h5>{{offer.offer_title}}</h5>
-                <h6 class="itemcard-desc"><b>item:</b> {{offer.offer_item.item_name}}</h6>
-                <h6 class="itemcard-desc">by {{offer.author}}</h6>
-                {% if offer.offer_status == "CLOSED" %}
-                <h6 class="itemcard-desc" style="color: red">Unavailable</h6>
-                {% elif offer.offer_status == "STANDBY" %}
-                <h6 class="itemcard-desc" style="color: green">Available</h6>
-                {% elif offer.offer_status == "ACCEPTED" %}
-                <h6 class="itemcard-desc" style="color: blue">Accepted</h6>
-                {% else %}
-                <h6 class="itemcard-desc" style="color: red">Rejected</h6>
-                {% endif %}
+<div class="col-lg-3 col-md-6 col-sm-6 pb-1" onclick="window.location.href = '/trades/trade_info/{{offer.pk}}'">
+    <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden">
+            <div style="width: 100%; height: 250px; overflow: hidden;">
+                <img class="img-fluid w-100" style="width: 100%; height: 100%; object-fit: cover;" src="{{offer.offer_item.image_url.url}}" alt="https://www.svgrepo.com/show/451667/image-missing.svg">
             </div>
-        </ul>
-    </body>
-</html>
+            <div class="product-action">
+                <a class="btn" href="/trades/trade_info/{{offer.pk}}"><i class="fa fa-eye fa-4x" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="">{{ offer.offer_title | truncatechars:22 }}</a>
+            <div class=" align-items-center justify-content-center mt-2">
+                <h6 class="itemcard-desc">by <a href = "/profile/{{offer.author.pk}}/">{{offer.author}}</a></h6>
+                <h6 class="itemcard-desc"><b>Item:</b> {{offer.offer_item.item_name}}</h6>
+            </div>
+            <h6>
+                {% if offer.offer_status == 'STANDBY' %} <span class="badge text-bg-success">
+                {% elif offer.offer_status == 'PENDING' %} <span class="badge text-bg-secondary">
+                {% elif offer.offer_status == 'CLOSED' %} <span class="badge text-bg-danger">
+                {% elif offer.offer_status == 'ACCEPTED' %} <span class="badge text-bg-success">
+                {% else %} <span class="badge text-bg-danger">
+                {% endif %}
+                {{offer.offer_status}}
+            </h6>
+        </div>
+    </div>
+</div>

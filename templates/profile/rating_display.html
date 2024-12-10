@@ -1,5 +1,6 @@
-<div style="display:flex; flex-direction: row;">
+<div style="display:flex; flex-direction: column;">
     {{ rating }}
+<div style="display:flex; flex-direction: row;">
     {% if rating.rater.pk == user.pk %}
     <form method="post">
         {% csrf_token %}
@@ -14,4 +15,5 @@
         <button class="btn btn-danger" type="submit">Delete Rating</button>
     </form>
     {% endif %}
+</div>
 </div>
